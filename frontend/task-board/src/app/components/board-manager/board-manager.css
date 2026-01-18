@@ -1,0 +1,55 @@
+.board-manager-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 1rem;
+  border-color: gainsboro;
+  border-style: solid;
+  padding: 40px 60px;
+  border-radius: 2%;
+}
+
+.board-title {
+  font-size: 3.8rem;
+  font-weight: 600;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.board-manager-subheader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+}
+
+.board {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: stretch;
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.add-ticket-button {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.add-ticket-button:hover {
+  background-color: #4338ca;
+  transform: translateY(-1px);
+}

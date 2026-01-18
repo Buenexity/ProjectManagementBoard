@@ -1,0 +1,15 @@
+<div class="ticket-card">
+  <div class="ticket-header">
+    <span class="badge">{{ ticket.category }}</span>
+    <button class="icon-btn" (click)="editTicket.emit(ticket)">✎</button>
+  </div>
+
+  <div class="info-sec">
+    <h3 class="ticket-title">{{ ticket.title }} - #{{ ticket.id }}</h3>
+    <p class="ticket-desc">{{ ticket.description }}</p>
+  </div>
+
+  <div class="ticket-footer">
+    <button class="icon-btn" (click)="deleteTicket.emit(ticket)">🗑️</button>
+  </div>
+</div>

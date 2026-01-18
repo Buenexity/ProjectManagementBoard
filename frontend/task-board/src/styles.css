@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+
+body {
+  background-color: lightgray;
+  background-image: url('/gray_background.jpg');
+  font-family: var(--app-font);
+}
+
+:root {
+  --primary-color: #4caf50;
+  --secondary-color: #079cff;
+  --sub-text-color: #696666;
+  --strong-button: #7c3aed;
+  ---light-button: #5b21b6;
+  --board-background-color: rgb(174, 181, 190);
+  --app-font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}

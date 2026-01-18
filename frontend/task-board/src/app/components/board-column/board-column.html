@@ -1,0 +1,21 @@
+<div class="board-container">
+  <div class="board-title">{{ title }}</div>
+
+  <div
+    class="columns-container"
+    cdkDropList
+    [cdkDropListData]="tickets"
+    [cdkDropListConnectedTo]="connectedLists"
+    (cdkDropListDropped)="drop($event)"
+    [id]="title"
+  >
+    <app-ticket-card
+      *ngFor="let ticket of tickets; trackBy: trackByTicketId"
+      [ticket]="ticket"
+      cdkDrag
+      (editTicket)="editTicket.emit($event)"
+      (deleteTicket)="deleteTicket.emit($event)"
+    >
+    </app-ticket-card>
+  </div>
+</div>

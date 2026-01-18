@@ -1,0 +1,35 @@
+<div class="modal-backdrop" *ngIf="isOpen" (click)="onBackdropClick()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h1 class="modal-ticket-header">Create Ticket</h1>
+    <form [formGroup]="ticketForm" (ngSubmit)="submit()">
+      <label>
+        Title
+        <input type="text" formControlName="title" />
+      </label>
+
+      <label>
+        Description
+        <textarea formControlName="description"></textarea>
+      </label>
+
+      <label>
+        Status
+        <select formControlName="status">
+          <option *ngFor="let status of statuses_selection" [value]="status">
+            {{ status }}
+          </option>
+        </select>
+      </label>
+
+      <label>
+        Categories
+        <select formControlName="category">
+          <option *ngFor="let category of categories_selection" [value]="category">
+            {{ category }}
+          </option>
+        </select>
+      </label>
+      <button class="button" type="submit">Create Ticket</button>
+    </form>
+  </div>
+</div>

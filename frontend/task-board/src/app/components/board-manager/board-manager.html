@@ -1,0 +1,33 @@
+<div class="board-manager-header">
+  <div class="board-manager-subheader">
+    <h1 class="board-title">Project Management Board</h1>
+    <button class="add-ticket-button" (click)="openModal()">+ Add Ticket</button>
+  </div>
+
+  <app-ticket-form
+    [isOpen]="isModalOpen"
+    (close)="closeModal()"
+    (createTicket)="handleCreateTicket($event)"
+  >
+  </app-ticket-form>
+
+  <app-edit-form
+    *ngIf="isEditModalOpen"
+    [ticket]="selectedTicket"
+    (updatedTicket)="handleUpdatedTicket($event)"
+    (closeEditForm)="closeEditModal()"
+  >
+  </app-edit-form>
+
+  <div class="board">
+    <app-board-column
+      *ngFor="let column of columns"
+      [title]="column"
+      [tickets]="ticketsByStatus[column]"
+      [connectedLists]="connectedLists"
+      (editTicket)="openEditModal($event)"
+      (deleteTicket)="deleteTicketEvent($event)"
+    >
+    </app-board-column>
+  </div>
+</div>
