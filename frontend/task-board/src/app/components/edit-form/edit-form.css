@@ -85,3 +85,7 @@
   cursor: not-allowed;
   background-color: darkslateblue;
 }
+
+.http-error {
+  color: red;
+}

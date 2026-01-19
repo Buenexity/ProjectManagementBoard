@@ -11,7 +11,6 @@ import { Ticket, Status, STATUSES } from '../../models/ticket';
 import { MOCK_TICKETS } from '../../data/mock';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef } from '@angular/core';
-import { error } from 'console';
 
 @Component({
   selector: 'app-board-manager',
@@ -23,10 +22,15 @@ import { error } from 'console';
 export class BoardManager implements OnInit {
   columns: Status[] = STATUSES;
   connectedLists: string[] = STATUSES;
-  ticketsByStatus: Record<Status, Ticket[]> = {} as Record<Status, Ticket[]>; //map tickets to the status type
+  ticketsByStatus: Record<Status, Ticket[]> = {} as Record<Status, Ticket[]>;
   selectedTicket!: Ticket;
+  ticketPendingDelete?: Ticket;
+  isConfirmModalOpen = false;
   isModalOpen = false;
   isEditModalOpen = false;
+  ticketFormError = '';
+  isSubmittingTicketForm = false;
+  isSubmittingEditForm = false;
 
   constructor(
     private http: HttpClient,
@@ -61,37 +65,47 @@ export class BoardManager implements OnInit {
   }
 
   handleCreateTicket(ticket: Ticket): void {
+    this.isSubmittingTicketForm = true;
+
     console.log('Creating ticket:', ticket);
     if (!this.ticketsByStatus[ticket.status]) {
       this.ticketsByStatus[ticket.status] = [];
     }
-    this.closeModal();
 
     this.http.post<Ticket>(environment.API_URL, ticket).subscribe({
       next: (createdTicket) => {
         this.ticketsByStatus[createdTicket.status].push(createdTicket);
+        this.closeModal();
         this.ref.markForCheck();
       },
       error: (err) => {
         console.error('Error creating ticket:', err);
+        this.ticketFormError = `Failed to create ticket: error status ${err.status}`;
+        this.isSubmittingTicketForm = false;
+        this.ref.markForCheck();
       },
     });
   }
 
   handleUpdatedTicket(updatedTicket: Ticket): void {
     const url = `${environment.API_URL}/${updatedTicket.id}`;
+    this.isSubmittingEditForm = true;
 
     this.http.put<Ticket>(url, updatedTicket).subscribe({
       next: (ticket) => {
         this.mergeTicket(updatedTicket);
+        this.isSubmittingEditForm = false;
+        this.closeEditModal();
         this.ref.markForCheck();
       },
       error: (error) => {
         console.error('Error updating ticket:', error);
+        this.ticketFormError = `Failed to edit the ticket: error status ${error.status}`;
+        this.isSubmittingEditForm = false;
+        console.error(this.isSubmittingEditForm);
+        this.ref.markForCheck();
       },
     });
-
-    this.isEditModalOpen = false;
   }
 
   mergeTicket(ticket: Ticket) {
@@ -106,26 +120,29 @@ export class BoardManager implements OnInit {
   }
 
   deleteTicketEvent(deleteTicket: Ticket): void {
-    const url = `${environment.API_URL}/${deleteTicket.id}`;
-    const status = deleteTicket.status as Status;
-    this.http.delete<Ticket>(url).subscribe({
-      next: (response) => {
-        console.log('Ticket deleted:', response);
-        this.ticketsByStatus[status] = this.ticketsByStatus[status].filter(
-          (ticket) => ticket.id !== deleteTicket.id,
-        );
-        this.ref.markForCheck();
-      },
-      error: (err) => {
-        console.error('Error deleting ticket:', err);
-      },
-    });
+    if (window.confirm(`Are you sure you want to delete this ticket`)) {
+      const url = `${environment.API_URL}/${deleteTicket.id}`;
+      const status = deleteTicket.status as Status;
+      this.http.delete<Ticket>(url).subscribe({
+        next: (response) => {
+          console.log('Ticket deleted:', response);
+          this.ticketsByStatus[status] = this.ticketsByStatus[status].filter(
+            (ticket) => ticket.id !== deleteTicket.id,
+          );
+          this.ref.markForCheck();
+        },
+        error: (err) => {
+          console.error('Error deleting ticket:', err);
+        },
+      });
+    }
   }
 
   /*UPDATE Ticket Modal*/
   openEditModal(ticket: Ticket): void {
     this.selectedTicket = ticket;
     this.isEditModalOpen = true;
+    this.ticketFormError = '';
   }
 
   closeEditModal(): void {
@@ -135,6 +152,7 @@ export class BoardManager implements OnInit {
   /*ADD Ticket Modal*/
   openModal(): void {
     this.isModalOpen = true;
+    this.ticketFormError = '';
   }
 
   closeModal(): void {

@@ -29,7 +29,16 @@
           </option>
         </select>
       </label>
-      <button class="button" type="submit">Create Ticket</button>
+      <div class="http-error" *ngIf="httpError">
+        {{ httpError }}
+      </div>
+      <button
+        class="button"
+        type="submit"
+        [disabled]="ticketForm.invalid || isSubmittingTicketForm"
+      >
+        {{ isSubmittingTicketForm ? 'Submitting…' : 'Create Ticket' }}
+      </button>
     </form>
   </div>
 </div>

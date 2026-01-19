@@ -82,4 +82,21 @@
   overflow: hidden;
   text-overflow: ellipsis;
   word-break: break-word;
+  padding: 4px;
+}
+
+.category-feature {
+  background-color: var(--category-feature);
+}
+
+.category-bug {
+  background-color: var(--category-bug);
+}
+
+.category-improvement {
+  background-color: var(--category-improvement);
+}
+
+.category-rd {
+  background-color: var(--category-research);
 }

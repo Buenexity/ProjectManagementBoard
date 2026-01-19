@@ -8,6 +8,8 @@
     [isOpen]="isModalOpen"
     (close)="closeModal()"
     (createTicket)="handleCreateTicket($event)"
+    [httpError]="ticketFormError"
+    [isSubmittingTicketForm]="isSubmittingTicketForm"
   >
   </app-ticket-form>
 
@@ -16,6 +18,8 @@
     [ticket]="selectedTicket"
     (updatedTicket)="handleUpdatedTicket($event)"
     (closeEditForm)="closeEditModal()"
+    [httpError]="ticketFormError"
+    [isSubmittingEditForm]="isSubmittingEditForm"
   >
   </app-edit-form>
 

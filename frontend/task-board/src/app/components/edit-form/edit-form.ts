@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { STATUSES, CATEGORIES, Ticket } from '../../models/ticket';
 
 @Component({
@@ -13,16 +13,17 @@ export class EditForm implements OnChanges {
   @Input() ticket!: Ticket;
   @Output() closeEditForm = new EventEmitter<void>();
   @Output() updatedTicket = new EventEmitter<Ticket>();
+  @Input() httpError: string | null = null;
+  @Input() isSubmittingEditForm = false;
 
   statuses_selection = STATUSES;
   categories_selection = CATEGORIES;
-
   ticketForm: FormGroup;
   oldCopy!: Ticket;
 
   constructor(private fb: FormBuilder) {
     this.ticketForm = this.fb.group({
-      title: [''],
+      title: ['', Validators.required],
       description: [''],
       status: [''],
       category: [''],
@@ -30,6 +31,7 @@ export class EditForm implements OnChanges {
   }
 
   onBackdropClick() {
+    if (this.isSubmittingEditForm) return;
     this.closeEditForm.emit();
   }
 
@@ -54,7 +56,6 @@ export class EditForm implements OnChanges {
     console.log('ticket updated to', updatedTicket);
 
     this.updatedTicket.emit(updatedTicket);
-    this.closeEditForm.emit();
   }
 
   cancel(): void {

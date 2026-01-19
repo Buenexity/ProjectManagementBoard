@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { STATUSES, CATEGORIES } from '../../models/ticket';
-import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Ticket } from '../../models/ticket';
 
 @Component({
@@ -14,6 +14,8 @@ export class TicketForm {
   @Input() isOpen = false;
   @Output() close = new EventEmitter<void>(); //send to parent div to close it
   @Output() createTicket = new EventEmitter<Ticket>();
+  @Input() httpError: string | null = null;
+  @Input() isSubmittingTicketForm = false;
 
   statuses_selection = STATUSES;
   categories_selection = CATEGORIES;
@@ -22,7 +24,7 @@ export class TicketForm {
 
   constructor(private fb: FormBuilder) {
     this.ticketForm = this.fb.group({
-      title: [''],
+      title: ['', Validators.required],
       description: [''],
       status: [this.statuses_selection[0]],
       category: [this.categories_selection[0]],
@@ -30,6 +32,8 @@ export class TicketForm {
   }
 
   submit() {
+    if (this.ticketForm.invalid || this.isSubmittingTicketForm) return;
+
     console.log(this.ticketForm.value);
     const newTicket: any = {
       title: this.ticketForm.value.title,
@@ -48,6 +52,7 @@ export class TicketForm {
   }
 
   onBackdropClick() {
+    if (this.isSubmittingTicketForm) return;
     this.close.emit();
   }
 }

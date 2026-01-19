@@ -13,5 +13,9 @@ body {
   --strong-button: #7c3aed;
   ---light-button: #5b21b6;
   --board-background-color: rgb(174, 181, 190);
+  --category-feature: #2563eb;
+  --category-bug: #dc2626;
+  --category-improvement: #16a34a;
+  --category-research: #9333ea;
   --app-font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }

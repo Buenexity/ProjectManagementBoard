@@ -1,6 +1,8 @@
 <div class="ticket-card">
   <div class="ticket-header">
-    <span class="badge">{{ ticket.category }}</span>
+    <span class="badge" [ngClass]="convertCatToColor(ticket.category)">
+      {{ ticket.category }}
+    </span>
     <button class="icon-btn" (click)="editTicket.emit(ticket)">✎</button>
   </div>
 

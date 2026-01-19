@@ -29,9 +29,21 @@
         </select>
       </label>
 
+      <div class="http-error" *ngIf="httpError">
+        {{ httpError }}
+      </div>
+
       <div class="button-group">
-        <button type="submit" class="button" [disabled]="ticketForm.pristine">Save</button>
-        <button type="button" class="button" (click)="cancel()">Cancel</button>
+        <button
+          type="submit"
+          class="button"
+          [disabled]="ticketForm.invalid || isSubmittingEditForm"
+        >
+          {{ isSubmittingEditForm ? 'Submitting…' : 'Save' }}
+        </button>
+        <button type="button" class="button" (click)="cancel()" [disabled]="isSubmittingEditForm">
+          Cancel
+        </button>
       </div>
     </form>
   </div>
