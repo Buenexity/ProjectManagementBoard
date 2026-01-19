@@ -37,7 +37,7 @@
         <button
           type="submit"
           class="button"
-          [disabled]="ticketForm.invalid || isSubmittingEditForm"
+          [disabled]="ticketForm.invalid || isSubmittingEditForm ||  editForm.pristine"
         >
           {{ isSubmittingEditForm ? 'Submitting…' : 'Save' }}
         </button>
