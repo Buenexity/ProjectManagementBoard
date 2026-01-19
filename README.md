@@ -1,7 +1,7 @@
 ## 📋 ProjectManagementBoard
 
 **ProjectManagementBoard** is a full-stack Kanban-style ticket management application built with **Angular** and **.NET**.  
-It enables users to create, edit, delete, and manage tickets across multiple workflow stages through an intuitive board-based interface.
+It enables users to create, edit, delete, and manage tickets across multiple workflow stages through a kanban based interface.
 
 ---
 
