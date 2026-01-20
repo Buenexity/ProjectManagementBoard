@@ -21,6 +21,7 @@ cd backend/backendapi
 dotnet restore
 Open Program.cs and update CORS and replace the frontend URL if needed:
 "policy.WithOrigins("http://localhost:4200")"
+dotnet ef database update
 dotnet run
 ```
 
