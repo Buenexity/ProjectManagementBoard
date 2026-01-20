@@ -108,16 +108,21 @@ export class BoardManager implements OnInit {
     });
   }
 
-  mergeTicket(ticket: Ticket) {
-    const allTickets = Object.values(this.ticketsByStatus).flat();
-    const existing = allTickets.find((t) => t.id === ticket.id);
-
-    if (existing) {
-      Object.assign(existing, ticket);
-    } else {
-      this.ticketsByStatus[ticket.status].push(ticket);
-    }
+mergeTicket(updated: Ticket): void 
+{
+  const newTicketsByStatus: typeof this.ticketsByStatus = {};
+  
+  for (const status of Object.keys(this.ticketsByStatus)) 
+  {
+    newTicketsByStatus[status] = this.ticketsByStatus[status].filter(t => t.id !== updated.id);
   }
+
+  //Add updated ticket to its new status
+  const updatedStatus = updated.status as keyof typeof newTicketsByStatus;
+  newTicketsByStatus[updatedStatus] = [...newTicketsByStatus[updatedStatus],{ ...updated },];
+  this.ticketsByStatus = newTicketsByStatus;
+}
+
 
   deleteTicketEvent(deleteTicket: Ticket): void {
     if (window.confirm(`Are you sure you want to delete this ticket`)) {
