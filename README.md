@@ -34,3 +34,12 @@ Update the API URL in src/app/config/environment.ts:
 "API_URL: 'http://localhost:5138/api/Tickets'"
 ng serve
 ```
+
+### Drag and Drop Improvements
+- Add an `index` field to the ticket model to preserve ticket order after a page refresh
+- Implement error handling for cases where a drag-and-drop operation fails on the backend
+
+### Backend Validation & Error Handling
+- Validate that all required parameters are provided in API requests
+- Ensure `category` and `status` values follow the expected data types
+- Restrict `category` and `status` to allowed values and return meaningful error responses when validation fails
