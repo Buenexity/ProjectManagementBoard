@@ -62,3 +62,11 @@ Migrations/*.cs
 # NuGet
 *.nupkg
 .nuget/
+
+# SQLite
+*.db
+*.sqlite
+*.sqlite3
+
+bin/
+obj/
