@@ -20,7 +20,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<TicketContext>(options =>
-    options.UseInMemoryDatabase("Tickets"));
+   options.UseSqlite("Data Source=projectboard.db"));
 
 var app = builder.Build();
 
@@ -29,6 +29,7 @@ app.UseCors("AllowAngularDev");
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<TicketContext>();
+    context.Database.Migrate();
     DbInitializer.Seed(context);
 }
 
