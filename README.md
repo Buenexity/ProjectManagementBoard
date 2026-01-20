@@ -22,9 +22,9 @@
 ```bash
 cd backend/backendapi
 dotnet restore
-dotnet run
 Open Program.cs and update CORS and replace the frontend URL if needed:
 "policy.WithOrigins("http://localhost:4200")"
+dotnet run
 ```
 
 
