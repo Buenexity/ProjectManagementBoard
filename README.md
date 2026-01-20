@@ -13,3 +13,24 @@
   <img width="450" alt="Edit Ticket Modal" src="https://github.com/user-attachments/assets/d40c1acc-0841-4797-bcb3-bd18d88c50bd" />
   <img width="550" alt="Ticket Details View" src="https://github.com/user-attachments/assets/f472bcc2-5f7b-436b-a0f5-e6d7bfdc74be" />
 </p>
+
+
+### Run Project Locally
+
+#### Backend (.NET)
+
+```bash
+cd backend/backendapi
+dotnet restore
+dotnet run
+Open Program.cs and update CORS
+Replace the frontend URL if needed:
+policy.WithOrigins("http://localhost:4200")
+```bash
+
+#### FrontEnd (Angular)
+cd frontend/task-board
+npm install
+Update the API URL in src/app/config/environment.ts:
+API_URL: 'http://localhost:5138/api/Tickets'
+ng serve
