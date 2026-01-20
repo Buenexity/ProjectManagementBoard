@@ -23,14 +23,17 @@
 cd backend/backendapi
 dotnet restore
 dotnet run
-Open Program.cs and update CORS
-Replace the frontend URL if needed:
-policy.WithOrigins("http://localhost:4200")
-```bash
+Open Program.cs and update CORS and replace the frontend URL if needed:
+"policy.WithOrigins("http://localhost:4200")"
+```
+
 
 #### FrontEnd (Angular)
+```bash
+
 cd frontend/task-board
 npm install
 Update the API URL in src/app/config/environment.ts:
-API_URL: 'http://localhost:5138/api/Tickets'
+"API_URL: 'http://localhost:5138/api/Tickets'"
 ng serve
+```
