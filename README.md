@@ -32,6 +32,7 @@ cd frontend/task-board
 npm install
 Update the API URL in src/app/config/environment.ts:
 "API_URL: 'http://localhost:5138/api/Tickets'"
+dotnet ef database update
 ng serve
 ```
 
